@@ -96,7 +96,7 @@ events:
       The output was:
       0
       MSBuild version 18.3.0-release-26070-10+3972042b7 for .NET Framework
-      Build started 2/24/2026 12:30:26 PM.
+      Build started 2/24/2026 1:22:14 PM.
       
       Project "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\4.3.0-rc1\\CompilerIdC\\CompilerIdC.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -125,7 +125,7 @@ events:
           0 Warning(s)
           0 Error(s)
       
-      Time Elapsed 00:00:00.39
+      Time Elapsed 00:00:00.37
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -851,7 +851,7 @@ events:
       The output was:
       0
       MSBuild version 18.3.0-release-26070-10+3972042b7 for .NET Framework
-      Build started 2/24/2026 12:30:26 PM.
+      Build started 2/24/2026 1:22:14 PM.
       
       Project "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\4.3.0-rc1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -880,7 +880,7 @@ events:
           0 Warning(s)
           0 Error(s)
       
-      Time Elapsed 00:00:00.38
+      Time Elapsed 00:00:00.39
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -1248,8 +1248,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-ydben7"
-      binary: "C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-ydben7"
+      source: "C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-igvcsf"
+      binary: "C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-igvcsf"
     cmakeVariables:
       CMAKE_CXX_STDLIB_MODULES_JSON: ""
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
@@ -1259,39 +1259,39 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-ydben7'
+        Change Dir: 'C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-igvcsf'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_22250.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=18.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_d429b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=18.0 /v:n
         MSBuild version 18.3.0-release-26070-10+3972042b7 for .NET Framework
-        Build started 2/24/2026 12:30:27 PM.
+        Build started 2/24/2026 1:22:15 PM.
         
-        Project "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ydben7\\cmTC_22250.vcxproj" on node 1 (default targets).
+        Project "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-igvcsf\\cmTC_d429b.vcxproj" on node 1 (default targets).
         PrepareForBuild:
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ydben7\\Debug\\".
-          Creating directory "cmTC_22250.dir\\Debug\\cmTC_22250.tlog\\".
+          Creating directory "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-igvcsf\\Debug\\".
+          Creating directory "cmTC_d429b.dir\\Debug\\cmTC_d429b.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_22250.dir\\Debug\\cmTC_22250.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_22250.dir\\Debug\\cmTC_22250.tlog\\unsuccessfulbuild".
+          Creating "cmTC_d429b.dir\\Debug\\cmTC_d429b.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_d429b.dir\\Debug\\cmTC_d429b.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_22250.dir\\Debug\\\\" /Fd"cmTC_22250.dir\\Debug\\vc145.pdb" /external:W3 /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_d429b.dir\\Debug\\\\" /Fd"cmTC_d429b.dir\\Debug\\vc145.pdb" /external:W3 /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.50.35724 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_22250.dir\\Debug\\\\" /Fd"cmTC_22250.dir\\Debug\\vc145.pdb" /external:W3 /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_d429b.dir\\Debug\\\\" /Fd"cmTC_d429b.dir\\Debug\\vc145.pdb" /external:W3 /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ydben7\\Debug\\cmTC_22250.exe" /INCREMENTAL /ILK:"cmTC_22250.dir\\Debug\\cmTC_22250.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-ydben7/Debug/cmTC_22250.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-ydben7/Debug/cmTC_22250.lib" /MACHINE:X64  /machine:x64 cmTC_22250.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_22250.vcxproj -> C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ydben7\\Debug\\cmTC_22250.exe
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-igvcsf\\Debug\\cmTC_d429b.exe" /INCREMENTAL /ILK:"cmTC_d429b.dir\\Debug\\cmTC_d429b.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-igvcsf/Debug/cmTC_d429b.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-igvcsf/Debug/cmTC_d429b.lib" /MACHINE:X64  /machine:x64 cmTC_d429b.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_d429b.vcxproj -> C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-igvcsf\\Debug\\cmTC_d429b.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_22250.dir\\Debug\\cmTC_22250.tlog\\unsuccessfulbuild".
-          Touching "cmTC_22250.dir\\Debug\\cmTC_22250.tlog\\cmTC_22250.lastbuildstate".
-        Done Building Project "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ydben7\\cmTC_22250.vcxproj" (default targets).
+          Deleting file "cmTC_d429b.dir\\Debug\\cmTC_d429b.tlog\\unsuccessfulbuild".
+          Touching "cmTC_d429b.dir\\Debug\\cmTC_d429b.tlog\\cmTC_d429b.lastbuildstate".
+        Done Building Project "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-igvcsf\\cmTC_d429b.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:00.39
+        Time Elapsed 00:00:00.42
         
       exitCode: 0
   -
@@ -1331,8 +1331,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-4t1cnh"
-      binary: "C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-4t1cnh"
+      source: "C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-yyc1sx"
+      binary: "C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-yyc1sx"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -1343,33 +1343,33 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-4t1cnh'
+        Change Dir: 'C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-yyc1sx'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_4806d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=18.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_9f898.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=18.0 /v:n
         MSBuild version 18.3.0-release-26070-10+3972042b7 for .NET Framework
-        Build started 2/24/2026 12:30:28 PM.
+        Build started 2/24/2026 1:22:16 PM.
         
-        Project "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4t1cnh\\cmTC_4806d.vcxproj" on node 1 (default targets).
+        Project "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yyc1sx\\cmTC_9f898.vcxproj" on node 1 (default targets).
         PrepareForBuild:
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4t1cnh\\Debug\\".
-          Creating directory "cmTC_4806d.dir\\Debug\\cmTC_4806d.tlog\\".
+          Creating directory "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yyc1sx\\Debug\\".
+          Creating directory "cmTC_9f898.dir\\Debug\\cmTC_9f898.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_4806d.dir\\Debug\\cmTC_4806d.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_4806d.dir\\Debug\\cmTC_4806d.tlog\\unsuccessfulbuild".
+          Creating "cmTC_9f898.dir\\Debug\\cmTC_9f898.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_9f898.dir\\Debug\\cmTC_9f898.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_4806d.dir\\Debug\\\\" /Fd"cmTC_4806d.dir\\Debug\\vc145.pdb" /external:W3 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_9f898.dir\\Debug\\\\" /Fd"cmTC_9f898.dir\\Debug\\vc145.pdb" /external:W3 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.50.35724 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_4806d.dir\\Debug\\\\" /Fd"cmTC_4806d.dir\\Debug\\vc145.pdb" /external:W3 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_9f898.dir\\Debug\\\\" /Fd"cmTC_9f898.dir\\Debug\\vc145.pdb" /external:W3 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.3\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4t1cnh\\Debug\\cmTC_4806d.exe" /INCREMENTAL /ILK:"cmTC_4806d.dir\\Debug\\cmTC_4806d.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-4t1cnh/Debug/cmTC_4806d.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-4t1cnh/Debug/cmTC_4806d.lib" /MACHINE:X64  /machine:x64 cmTC_4806d.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_4806d.vcxproj -> C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4t1cnh\\Debug\\cmTC_4806d.exe
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yyc1sx\\Debug\\cmTC_9f898.exe" /INCREMENTAL /ILK:"cmTC_9f898.dir\\Debug\\cmTC_9f898.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-yyc1sx/Debug/cmTC_9f898.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/Sam/source/repos/RayTracer/build/CMakeFiles/CMakeScratch/TryCompile-yyc1sx/Debug/cmTC_9f898.lib" /MACHINE:X64  /machine:x64 cmTC_9f898.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_9f898.vcxproj -> C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yyc1sx\\Debug\\cmTC_9f898.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_4806d.dir\\Debug\\cmTC_4806d.tlog\\unsuccessfulbuild".
-          Touching "cmTC_4806d.dir\\Debug\\cmTC_4806d.tlog\\cmTC_4806d.lastbuildstate".
-        Done Building Project "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4t1cnh\\cmTC_4806d.vcxproj" (default targets).
+          Deleting file "cmTC_9f898.dir\\Debug\\cmTC_9f898.tlog\\unsuccessfulbuild".
+          Touching "cmTC_9f898.dir\\Debug\\cmTC_9f898.tlog\\cmTC_9f898.lastbuildstate".
+        Done Building Project "C:\\Users\\Sam\\source\\repos\\RayTracer\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yyc1sx\\cmTC_9f898.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
