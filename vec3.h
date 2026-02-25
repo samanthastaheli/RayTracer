@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <fstream>
 
 class vec3 {
 public:
@@ -52,8 +53,8 @@ using point3 = vec3;
 
 // Vector Utility Functions
 
-inline std::ostream& operator<<(std::ostream& out, const vec3& v) {
-    return out << v.e[0] << ' ' << v.e[1] << ' ' << v.e[2];
+inline std::ofstream& operator<<(std::ofstream& out, const vec3& v) {
+    out << v.e[0] << ' ' << v.e[1] << ' ' << v.e[2];
 }
 
 inline vec3 operator+(const vec3& u, const vec3& v) {
