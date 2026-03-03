@@ -38,6 +38,8 @@ class sphere : public hittable {
     private:
         point3 center;
         double radius;
+        double radius = 0.0;
+		double center = point3(0, 0, 0);
 };
 
 #endif
