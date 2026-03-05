@@ -47,7 +47,19 @@ public:
     }
 
     color get_color(const ray& r) {
-        // Specular light = Os
+        /*
+        slide 12 and 13 in IlluminationShading
+        Equations for I and R:
+            I = ambientTerm + diffuseTerm + specularTerm
+            ambientTerm = k_a * Ia * O_d
+            diffuseTerm = k_d * I_p * O_d * max(0, N
+            specularTerm = k_s * I_p * O_s * max(0, R dot O_s)^n
+
+            R = reflect direction 2N(N dot L) - L
+
+            Specular light = Os
+        */
+
         auto t = hit(r);
 
         if (t <= 0.0) {

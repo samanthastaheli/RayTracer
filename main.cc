@@ -22,24 +22,10 @@ const double infinity = std::numeric_limits<double>::infinity();
 std::vector<std::shared_ptr<sphere>> spheres;
 
 
-// Functions to create colors and shapes
-
-
 color get_illumination(const ray& r) {
-    /*
-    slide 12 and 13 in IlluminationShading
-    Equations for I and R:
-        I = ambientTerm + diffuseTerm + specularTerm
-        ambientTerm = k_a * Ia * O_d
-        diffuseTerm = k_d * I_p * O_d * max(0, N
-        specularTerm = k_s * I_p * O_s * max(0, R dot O_s)^n
-
-        R = reflect direction 2N(N dot L) - L
-    */
-
-    //auto sphere1 = sphere(point3(0, 0, -1), 0.5);
 
     std::vector<sphere> spheres;
+
     // sphere(center, radius, Kd, Ks, Ka, Kgls, Od, Os)
     spheres.push_back(sphere(point3(0.0, -10000.5, 0.0), 10000.0, 0.9, 0.0, 0.1, 16.0, color(0.0, 0.0, 1.0), color(1.0, 1.0, 1.0))); // blue sphere
     spheres.push_back(sphere(point3(-0.6, 0.0, 0.0), 0.3, 0.7, 0.2, 0.1, 64.0, color(0.0, 1.0, 0.0), color(0.5, 1.0, 0.5))); // green sphere
@@ -73,8 +59,7 @@ int main() {
 
     // Create Image
 
-	//auto aspect_ratio = 16.0 / 9.0; // aspect ratio choosen from ray tracing in one weekend
-    auto aspect_ratio = 16.0 / 16.0;
+	auto aspect_ratio = 25.0 / 10.0;
     int image_width = 400;
     int image_height = int(image_width / aspect_ratio);
 	image_height = (image_height < 1) ? 1 : image_height; // ensure height is at least 1
