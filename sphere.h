@@ -69,7 +69,7 @@ public:
         // Variables 
 
         vec3 N = unit_vector(r.at(t) - center);
-        vec3 L = vec3(0.0, 1.0, 0.0); // DirectionToLight
+        vec3 L = unit_vector(vec3(0.0, 3.0, 2.0) - r.at(t)); // DirectionToLight
         color Ia(0.0, 0.0, 0.0); // AmbientLight
         color Ip(1.0, 1.0, 1.0); // LightColor
 

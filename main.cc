@@ -27,17 +27,35 @@ color get_illumination(const ray& r) {
     std::vector<sphere> spheres;
 
     // sphere(center, radius, Kd, Ks, Ka, Kgls, Od, Os)
-    spheres.push_back(sphere(point3(0.0, -10000.5, 0.0), 10000.0, 0.9, 0.0, 0.1, 16.0, color(0.0, 0.0, 1.0), color(1.0, 1.0, 1.0))); // blue sphere
-    spheres.push_back(sphere(point3(-0.6, 0.0, 0.0), 0.3, 0.7, 0.2, 0.1, 64.0, color(0.0, 1.0, 0.0), color(0.5, 1.0, 0.5))); // green sphere
-    spheres.push_back(sphere(point3(0.45, 0.0, -0.15), 0.15, 0.8, 0.1, 0.3, 4.0, color(1.0, 1.0, 1.0), color(1.0, 1.0, 1.0))); // white sphere
-    spheres.push_back(sphere(point3(0, 0, -1), 0.2, 0.6, 0.3, 0.1, 32.0, color(1.0, 0.0, 0.0), color(1.0, 1.0, 1.0))); // red sphere
+    // Ground (big green sphere below)
+    spheres.push_back(
+        sphere(point3(0.0, -1000.5, 0.0), 1000.0, 0.9, 0.0, 0.1, 16.0, color(0.576, 0.686, 0.353), color(1.0, 1.0, 1.0))
+    );
+
+    // Sky (big blue sphere above)
+    spheres.push_back(
+        sphere(point3(0.0, 1500.5, 0.0), 1000.0, 0.9, 0.0, 0.1, 16.0, color(0.741, 0.878, 0.996), color(1.0, 1.0, 1.0))
+    );
+
+    // Three spheres in a row
+    spheres.push_back(
+        sphere(point3(-0.6, 0.0, -1.0), 0.2, 0.8, 0.8, 0.5, 64.0, color(0.804, 0.706, 0.859), color(1.0, 1.0, 1.0))
+    );
+    spheres.push_back(
+        sphere(point3(0.0, 0.0, -1.0), 0.2, 0.8, 0.8, 0.5, 64.0, color(1.0, 0.784, 0.867), color(1.0, 1.0, 1.0))
+    );
+    spheres.push_back(
+        sphere(point3(0.6, 0.0, -1.0), 0.2, 0.8, 0.8, 0.5, 64.0, color(1.0, 0.686, 0.8), color(1.0, 1.0, 1.0))
+    );
 
     color finalColor = BackgroundColor;
+    double closest_t = infinity;
 
     for (auto& s : spheres) {
         auto t = s.hit(r);
 
-        if (t > 0.0) {
+        if (t > 0.0 && t < closest_t) {
+            closest_t = t;
             finalColor = s.get_color(r);
         }
     }
@@ -59,7 +77,7 @@ int main() {
 
     // Create Image
 
-	auto aspect_ratio = 25.0 / 10.0;
+	auto aspect_ratio = 16.0 / 16.0;
     int image_width = 400;
     int image_height = int(image_width / aspect_ratio);
 	image_height = (image_height < 1) ? 1 : image_height; // ensure height is at least 1
