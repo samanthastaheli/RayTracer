@@ -4,10 +4,11 @@
 #include "color.h"
 #include "vec3.h"
 #include "ray.h"
-
-#include "hittable.h"
-#include "hittable_list.h"
 #include "sphere.h"
+
+#include <memory>
+#include <vector>
+
 
 // Global variables
 
@@ -16,31 +17,15 @@ auto CameraLookFrom = point3(0, 0, 1);
 auto CameraLookUp = point3(0, 1, 0);
 auto FieldOfView = 90.0;
 
-
 const double infinity = std::numeric_limits<double>::infinity();
+
+std::vector<std::shared_ptr<sphere>> spheres;
+
 
 // Functions to create colors and shapes
 
-//double hit_sphere(const point3& center, double radius, const ray& r) {
-//	// h = d * (C - Q)
-//	// chnage to t0 and t1 for two solutions to the quadratic formula
-//    vec3 oc = center - r.origin();
-//    auto a = r.direction().length_squared();
-//    auto h = dot(r.direction(), oc);
-//    auto c = oc.length_squared() - radius * radius;
-//    auto discriminant = h * h - a * c;
-//    
-//    if (discriminant < 0) {
-//        return -1.0;
-//    }
-//    else {
-//		// h - sqrt(h^2 - ac) / a
-//        return (h - std::sqrt(discriminant)) / a;
-//    }
-//}
 
-
-color get_illumination(const ray& r, const hittable& world) {
+color get_illumination(const ray& r) {
     /*
     slide 12 and 13 in IlluminationShading
     Equations for I and R:
@@ -52,11 +37,22 @@ color get_illumination(const ray& r, const hittable& world) {
         R = reflect direction 2N(N dot L) - L
     */
 
-    hit_record rec;
-    world.get_color(r, 0, infinity, rec);
+	//auto sphere1 = sphere(point3(0, 0, -1), 0.5);
 
-    
+    std::vector<sphere> spheres;
 
+    spheres.push_back(sphere(point3(0, 0, -1), 0.5));
+    spheres.push_back(sphere(point3(1, 0, -1), 0.5));
+    spheres.push_back(sphere(point3(-1, 0, -1), 0.5));
+
+    color finalColor = BackgroundColor;
+
+    for (auto& s : spheres) {
+        color c = s.get_color(r);
+
+        if (c != BackgroundColor)
+            finalColor = c;
+    }
 }
 
 
@@ -79,20 +75,11 @@ int main() {
     int image_height = int(image_width / aspect_ratio);
 	image_height = (image_height < 1) ? 1 : image_height; // ensure height is at least 1
 
-    // Create World
-
-    hittable_list world;
-
-    world.add(make_shared<sphere>(point3(0, 0, -1), 0.5));
-    world.add(make_shared<sphere>(point3(0, -100.5, -1), 100));
-
     // Create camera and viewport
 
     auto focal_length = 1.0;
 	auto viewport_height = 2.0;
     auto viewport_width = viewport_height * (double(image_width) / image_height);
-    
-
 
     // Calculate the vectors across the horizontal and down the vertical viewport edges
     auto viewport_u = vec3(viewport_width, 0, 0);
@@ -117,7 +104,7 @@ int main() {
             auto ray_direction = pixel_center - CameraLookAt;
             ray r(CameraLookAt, ray_direction);
 
-            color pixel_color = get_illumination(r, world);            
+            color pixel_color = get_illumination(r);            
             write_color(imageOut, pixel_color);
         }
     }

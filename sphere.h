@@ -6,12 +6,11 @@
 
 color BackgroundColor = color(0.2, 0.2, 0.2);
 
-class sphere : public hittable {
+class sphere {
 public:
     sphere(const point3& center, double radius) : center(center), radius(std::fmax(0, radius)) {}
 
-    auto hit(const ray& r, double ray_tmin, double ray_tmax, hit_record& rec) {
-        auto t = 0.0;
+    auto hit(const ray& r) {
         // h = d * (C - Q)
 	    // chnage to t0 and t1 for two solutions to the quadratic formula
         vec3 oc = center - r.origin();
@@ -19,25 +18,18 @@ public:
         auto h = dot(r.direction(), oc);
         auto c = oc.length_squared() - radius * radius;
         auto discriminant = h * h - a * c;
-
+    
         if (discriminant < 0) {
-            t = -1.0;
+            return -1.0;
         }
         else {
 		    // h - sqrt(h^2 - ac) / a
-            t = (h - std::sqrt(discriminant)) / a;
+            return (h - std::sqrt(discriminant)) / a;
         }
-
-        // Set hit record variables
-        rec.t = t;
-        rec.p = r.at(rec.t);
-        rec.set_face_normal(r, oc);
-
-        return t;
     }
 
-    color get_color(const ray& r, double ray_tmin, double ray_tmax, hit_record& rec) {
-        auto t = hit(r, ray_tmin, ray_tmax, rec);
+    color get_color(const ray& r) {
+        auto t = hit(r);
 
         if (t <= 0.0) {
             return BackgroundColor;
@@ -46,7 +38,8 @@ public:
 
         // Variables 
 
-        vec3 N = unit_vector(r.at(t) - vec3(0, 0, -1));
+        //vec3 N = unit_vector(r.at(t) - vec3(0, 0, -1));
+        vec3 N = unit_vector(r.at(t) - center);
         vec3 L = vec3(0.0, 1.0, 0.0); // DirectionToLight
 
         double Kd = 0.7;
