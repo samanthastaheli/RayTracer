@@ -4,42 +4,77 @@
 #include "hittable.h"
 #include "vec3.h"
 
+color BackgroundColor = color(0.2, 0.2, 0.2);
+
 class sphere : public hittable {
-    public:
-        sphere(const point3& center, double radius) : center(center), radius(std::fmax(0, radius)) {}
+public:
+    sphere(const point3& center, double radius) : center(center), radius(std::fmax(0, radius)) {}
 
-        bool hit(const ray& r, double ray_tmin, double ray_tmax, hit_record& rec) const override {
-            vec3 oc = center - r.origin();
-            auto a = r.direction().length_squared();
-            auto h = dot(r.direction(), oc);
-            auto c = oc.length_squared() - radius * radius;
+    auto hit(const ray& r, double ray_tmin, double ray_tmax, hit_record& rec) {
+        auto t = 0.0;
+        // h = d * (C - Q)
+	    // chnage to t0 and t1 for two solutions to the quadratic formula
+        vec3 oc = center - r.origin();
+        auto a = r.direction().length_squared();
+        auto h = dot(r.direction(), oc);
+        auto c = oc.length_squared() - radius * radius;
+        auto discriminant = h * h - a * c;
 
-            auto discriminant = h * h - a * c;
-            if (discriminant < 0)
-                return false;
-
-            auto sqrtd = std::sqrt(discriminant);
-
-            // Find the nearest root that lies in the acceptable range.
-            auto root = (h - sqrtd) / a;
-            if (root <= ray_tmin || ray_tmax <= root) {
-                root = (h + sqrtd) / a;
-                if (root <= ray_tmin || ray_tmax <= root)
-                    return false;
-            }
-
-            rec.t = root;
-            rec.p = r.at(rec.t);
-            rec.normal = (rec.p - center) / radius;
-
-            return true;
+        if (discriminant < 0) {
+            t = -1.0;
+        }
+        else {
+		    // h - sqrt(h^2 - ac) / a
+            t = (h - std::sqrt(discriminant)) / a;
         }
 
-    private:
-        point3 center;
-        double radius;
-        double radius = 0.0;
-		double center = point3(0, 0, 0);
+        // Set hit record variables
+        rec.t = t;
+        rec.p = r.at(rec.t);
+        rec.set_face_normal(r, oc);
+
+        return t;
+    }
+
+    color get_color(const ray& r, double ray_tmin, double ray_tmax, hit_record& rec) {
+        auto t = hit(r, ray_tmin, ray_tmax, rec);
+
+        if (t <= 0.0) {
+            return BackgroundColor;
+        }
+
+
+        // Variables 
+
+        vec3 N = unit_vector(r.at(t) - vec3(0, 0, -1));
+        vec3 L = vec3(0.0, 1.0, 0.0); // DirectionToLight
+
+        double Kd = 0.7;
+        double Ks = 0.2;
+        double Ka = 0.1;
+        double Kgls = 16.0;
+        color Ia(0.0, 0.0, 0.0); // AmbientLight
+        color Ip(1.0, 1.0, 1.0); // LightColor
+        color Od(1.0, 0.0, 1.0);
+        color Os(1.0, 1.0, 1.0); // Specular light
+
+        // Calaculate refection direction R
+
+        vec3 R = 2 * N * dot(N, L) - L; // reflect direction
+
+        // Calculate illumination I
+
+        color ambientTerm = Ka * Ia * Od;
+        color diffuseTerm = Kd * Ip * Od * std::fmax(0.0, dot(N, L));
+        color specularTerm = Ks * Ip * Os * std::pow(std::fmax(0.0, dot(R, L)), Kgls);
+        color I = ambientTerm + diffuseTerm + specularTerm;
+
+        return I;
+    }
+
+private:
+    point3 center;
+    double radius;
 };
 
 #endif

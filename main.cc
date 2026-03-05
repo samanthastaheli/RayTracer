@@ -5,6 +5,9 @@
 #include "vec3.h"
 #include "ray.h"
 
+#include "hittable.h"
+#include "hittable_list.h"
+#include "sphere.h"
 
 // Global variables
 
@@ -13,31 +16,31 @@ auto CameraLookFrom = point3(0, 0, 1);
 auto CameraLookUp = point3(0, 1, 0);
 auto FieldOfView = 90.0;
 
-color BackgroundColor = color(0.2, 0.2, 0.2);
 
+const double infinity = std::numeric_limits<double>::infinity();
 
 // Functions to create colors and shapes
 
-double hit_sphere(const point3& center, double radius, const ray& r) {
-	// h = d * (C - Q)
-	// chnage to t0 and t1 for two solutions to the quadratic formula
-    vec3 oc = center - r.origin();
-    auto a = r.direction().length_squared();
-    auto h = dot(r.direction(), oc);
-    auto c = oc.length_squared() - radius * radius;
-    auto discriminant = h * h - a * c;
-    
-    if (discriminant < 0) {
-        return -1.0;
-    }
-    else {
-		// h - sqrt(h^2 - ac) / a
-        return (h - std::sqrt(discriminant)) / a;
-    }
-}
+//double hit_sphere(const point3& center, double radius, const ray& r) {
+//	// h = d * (C - Q)
+//	// chnage to t0 and t1 for two solutions to the quadratic formula
+//    vec3 oc = center - r.origin();
+//    auto a = r.direction().length_squared();
+//    auto h = dot(r.direction(), oc);
+//    auto c = oc.length_squared() - radius * radius;
+//    auto discriminant = h * h - a * c;
+//    
+//    if (discriminant < 0) {
+//        return -1.0;
+//    }
+//    else {
+//		// h - sqrt(h^2 - ac) / a
+//        return (h - std::sqrt(discriminant)) / a;
+//    }
+//}
 
 
-color get_illumination(const ray& r) {
+color get_illumination(const ray& r, const hittable& world) {
     /*
     slide 12 and 13 in IlluminationShading
     Equations for I and R:
@@ -49,38 +52,10 @@ color get_illumination(const ray& r) {
         R = reflect direction 2N(N dot L) - L
     */
 
-    auto t = hit_sphere(point3(0, 0, -1), 0.5, r);
+    hit_record rec;
+    world.get_color(r, 0, infinity, rec);
 
-    if (t <= 0.0) {
-        return BackgroundColor;
-    }
-
-    // Variables 
-
-    vec3 N = unit_vector(r.at(t) - vec3(0, 0, -1));
-    vec3 L = vec3(0.0, 1.0, 0.0); // DirectionToLight
-
-    double Kd = 0.7;
-    double Ks = 0.2;
-    double Ka = 0.1;
-    double Kgls = 16.0;
-    color Ia(0.0, 0.0, 0.0); // AmbientLight
-    color Ip(1.0, 1.0, 1.0); // LightColor
-    color Od(1.0, 0.0, 1.0);
-    color Os(1.0, 1.0, 1.0); // Specular light
-
-    // Calaculate refection direction R
-
-	vec3 R = 2 * N * dot(N, L) - L; // reflect direction
-
-    // Calculate illumination I
-
-    color ambientTerm = Ka * Ia * Od;
-    color diffuseTerm = Kd * Ip * Od * std::fmax(0.0, dot(N, L));
-    color specularTerm = Ks * Ip * Os * std::pow(std::fmax(0.0, dot(R, L)), Kgls);
-	color I = ambientTerm + diffuseTerm + specularTerm;
-
-	return I;
+    
 
 }
 
@@ -103,6 +78,13 @@ int main() {
     int image_width = 400;
     int image_height = int(image_width / aspect_ratio);
 	image_height = (image_height < 1) ? 1 : image_height; // ensure height is at least 1
+
+    // Create World
+
+    hittable_list world;
+
+    world.add(make_shared<sphere>(point3(0, 0, -1), 0.5));
+    world.add(make_shared<sphere>(point3(0, -100.5, -1), 100));
 
     // Create camera and viewport
 
@@ -135,7 +117,7 @@ int main() {
             auto ray_direction = pixel_center - CameraLookAt;
             ray r(CameraLookAt, ray_direction);
 
-            color pixel_color = get_illumination(r);            
+            color pixel_color = get_illumination(r, world);            
             write_color(imageOut, pixel_color);
         }
     }

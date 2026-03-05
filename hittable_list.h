@@ -37,6 +37,25 @@ public:
 
         return hit_anything;
     }
+
+    color get_color(const ray& r, double ray_tmin, double ray_tmax, hit_record& rec) const override {
+        hit_record temp_rec;
+        bool hit_anything = false;
+        auto closest_so_far = ray_tmax;
+        for (const auto& object : objects) {
+            if (object->hit(r, ray_tmin, closest_so_far, temp_rec)) {
+                hit_anything = true;
+                closest_so_far = temp_rec.t;
+                rec = temp_rec;
+            }
+        }
+        if (hit_anything) {
+            return rec.p; // Return the color of the hit point
+        }
+        else {
+            return color(0.2, 0.2, 0.2); // Background color
+        }
+	}   
 };
 
 #endif
