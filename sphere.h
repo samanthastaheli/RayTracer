@@ -1,18 +1,36 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
-#include "hittable.h"
 #include "vec3.h"
 
 color BackgroundColor = color(0.2, 0.2, 0.2);
 
 class sphere {
-public:
-    sphere(const point3& center, double radius) : center(center), radius(std::fmax(0, radius)) {}
+private:
+    point3 center;
+    double radius;
 
+    double Kd;
+    double Ks;
+    double Ka;
+    double Kgls;
+    color Od;
+    color Os;
+public:
+    sphere(const point3& center, double radius,
+        double Kd, double Ks, double Ka, double Kgls,
+        color Od, color Os)
+        : center(center),
+        radius(std::fmax(0, radius)),
+        Kd(Kd),
+        Ks(Ks),
+        Ka(Ka),
+        Kgls(Kgls),
+        Od(Od),
+        Os(Os) {
+    }
     auto hit(const ray& r) {
         // h = d * (C - Q)
-	    // chnage to t0 and t1 for two solutions to the quadratic formula
         vec3 oc = center - r.origin();
         auto a = r.direction().length_squared();
         auto h = dot(r.direction(), oc);
@@ -29,27 +47,19 @@ public:
     }
 
     color get_color(const ray& r) {
+        // Specular light = Os
         auto t = hit(r);
 
         if (t <= 0.0) {
             return BackgroundColor;
         }
 
-
         // Variables 
 
-        //vec3 N = unit_vector(r.at(t) - vec3(0, 0, -1));
         vec3 N = unit_vector(r.at(t) - center);
         vec3 L = vec3(0.0, 1.0, 0.0); // DirectionToLight
-
-        double Kd = 0.7;
-        double Ks = 0.2;
-        double Ka = 0.1;
-        double Kgls = 16.0;
         color Ia(0.0, 0.0, 0.0); // AmbientLight
         color Ip(1.0, 1.0, 1.0); // LightColor
-        color Od(1.0, 0.0, 1.0);
-        color Os(1.0, 1.0, 1.0); // Specular light
 
         // Calaculate refection direction R
 
@@ -64,10 +74,6 @@ public:
 
         return I;
     }
-
-private:
-    point3 center;
-    double radius;
 };
 
 #endif
