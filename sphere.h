@@ -1,24 +1,26 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
+#include <limits>
+#include <vector>
+#include <memory>
 #include "vec3.h"
 
-color BackgroundColor = color(0.2, 0.2, 0.2);
+double closest_t = std::numeric_limits<double>::infinity();
+inline constexpr double infinity = std::numeric_limits<double>::infinity();
+extern color BackgroundColor;
+//using std::vector;
+//extern std::vector<sphere> spheres;
 
 class sphere {
 private:
     point3 center;
-    double radius;
+    double radius, Kd, Ks, Ka, Kgls, Refl;
+    color Od, Os;
 
-    double Kd;
-    double Ks;
-    double Ka;
-    double Kgls;
-    color Od;
-    color Os;
 public:
     sphere(const point3& center, double radius,
-        double Kd, double Ks, double Ka, double Kgls,
+		double Kd, double Ks, double Ka, double Kgls, double Refl,
         color Od, color Os)
         : center(center),
         radius(std::fmax(0, radius)),
@@ -26,6 +28,7 @@ public:
         Ks(Ks),
         Ka(Ka),
         Kgls(Kgls),
+        Refl(Refl),
         Od(Od),
         Os(Os) {
     }
@@ -46,7 +49,33 @@ public:
         }
     }
 
-    color get_color(const ray& r) {
+    color trace_ray(ray r, int depth, const std::vector<std::shared_ptr<sphere>>& spheres) {
+        if (depth <= 0)
+            return color(0.0, 0.0, 0.0);
+
+        double closest_t = infinity;
+        sphere* hit_object = nullptr;
+
+        // Find closest intersection
+        for (auto& s : spheres) {
+            double t = s->hit(r);
+
+            if (t > 0.001 && t < closest_t) {
+                closest_t = t;
+                hit_object = s.get();
+            }
+        }
+
+        // If nothing hit → background
+        if (hit_object == nullptr) {
+            return BackgroundColor;
+        }
+
+        // Compute shading
+        return hit_object->get_color(r, closest_t, depth, spheres);
+    }
+
+    color get_color(const ray& r, double t, int depth, const std::vector<std::shared_ptr<sphere>>& spheres) {
         /*
         slide 12 and 13 in IlluminationShading
         Equations for I and R:
@@ -59,8 +88,6 @@ public:
 
             Specular light = Os
         */
-
-        auto t = hit(r);
 
         if (t <= 0.0) {
             return BackgroundColor;
@@ -77,12 +104,19 @@ public:
 
         vec3 R = 2 * N * dot(N, L) - L; // reflect direction
 
+		// Create reflection ray
+
+		double offset = 0.001; // must have small offset to avoid self-intersection
+		point3 hitPoint = r.at(t) + offset * N;
+		ray reflectionRay(hitPoint, R);
+        color reflectionColor = trace_ray(reflectionRay, 3, spheres);
+
         // Calculate illumination I
 
         color ambientTerm = Ka * Ia * Od;
         color diffuseTerm = Kd * Ip * Od * std::fmax(0.0, dot(N, L));
         color specularTerm = Ks * Ip * Os * std::pow(std::fmax(0.0, dot(R, L)), Kgls);
-        color I = ambientTerm + diffuseTerm + specularTerm;
+        color I = ambientTerm + diffuseTerm + specularTerm + Refl * reflectionColor;
 
         return I;
     }

@@ -3,50 +3,59 @@
 
 #include "vec3.h"
 
-color BackgroundColor = color(0.2, 0.2, 0.2);
+extern color BackgroundColor;
 
 class polygon {
 private:
-    point3 center;
-    double radius;
+    point3 v0, v1, v2;
+    double Kd, Ks, Ka, Kgls, Refl;
+    color Od, Os;
 
-    double Kd;
-    double Ks;
-    double Ka;
-    double Kgls;
-    color Od;
-    color Os;
 public:
-    polygon(const point3& center, double radius,
-        double Kd, double Ks, double Ka, double Kgls,
+    polygon(point3 a, point3 b, point3 c,
+        double Kd, double Ks, double Ka, double Kgls, double Refl,
         color Od, color Os)
-        : center(center),
-        radius(std::fmax(0, radius)),
-        Kd(Kd),
-        Ks(Ks),
-        Ka(Ka),
-        Kgls(Kgls),
-        Od(Od),
-        Os(Os) {
+        : v0(a), v1(b), v2(c),
+        Kd(Kd), Ks(Ks), Ka(Ka), Kgls(Kgls), Refl(Refl),
+        Od(Od), Os(Os) {
     }
     auto hit(const ray& r) {
-        // h = d * (C - Q)
-        vec3 oc = center - r.origin();
-        auto a = r.direction().length_squared();
-        auto h = dot(r.direction(), oc);
-        auto c = oc.length_squared() - radius * radius;
-        auto discriminant = h * h - a * c;
-    
-        if (discriminant < 0) {
+        // project polygon onto 2D plane
+		// translate polygon so intersection point is at origin
+		// send ray down one coordinate and count number intersections of ray with the polygon
+        const double EPSILON = 1e-8;
+
+        vec3 edge1 = v1 - v0;
+        vec3 edge2 = v2 - v0;
+
+        vec3 h = cross(r.direction(), edge2);
+        double a = dot(edge1, h);
+
+        if (fabs(a) < EPSILON)
+            return -1.0; // ray parallel to triangle
+
+        double f = 1.0 / a;
+        vec3 s = r.origin() - v0;
+
+        double u = f * dot(s, h);
+        if (u < 0.0 || u > 1.0)
             return -1.0;
-        }
-        else {
-		    // h - sqrt(h^2 - ac) / a
-            return (h - std::sqrt(discriminant)) / a;
-        }
+
+        vec3 q = cross(s, edge1);
+
+        double v = f * dot(r.direction(), q);
+        if (v < 0.0 || u + v > 1.0)
+            return -1.0;
+
+        double t = f * dot(edge2, q);
+
+        if (t > EPSILON)
+            return t;
+
+        return -1.0;
     }
 
-    color get_color(const ray& r) {
+    color get_color(const ray& r, double t, int depth) {
         /*
         slide 12 and 13 in IlluminationShading
         Equations for I and R:
@@ -60,15 +69,13 @@ public:
             Specular light = Os
         */
 
-        auto t = hit(r);
-
         if (t <= 0.0) {
             return BackgroundColor;
         }
 
         // Variables 
 
-        vec3 N = unit_vector(r.at(t) - center);
+        vec3 N = unit_vector(cross(v1 - v0, v2 - v0));
         vec3 L = unit_vector(vec3(0.0, 3.0, 2.0) - r.at(t)); // DirectionToLight
         color Ia(0.0, 0.0, 0.0); // AmbientLight
         color Ip(1.0, 1.0, 1.0); // LightColor
@@ -81,7 +88,7 @@ public:
 
         color ambientTerm = Ka * Ia * Od;
         color diffuseTerm = Kd * Ip * Od * std::fmax(0.0, dot(N, L));
-        color specularTerm = Ks * Ip * Os * std::pow(std::fmax(0.0, dot(R, L)), Kgls);
+        color specularTerm = Ks * Ip * Os * std::pow(std::fmax(0.0, dot(R, -unit_vector(r.direction()))), Kgls);
         color I = ambientTerm + diffuseTerm + specularTerm;
 
         return I;
