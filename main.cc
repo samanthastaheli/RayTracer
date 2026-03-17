@@ -20,8 +20,6 @@ auto FieldOfView = 90.0;
 
 color BackgroundColor = color(0.2, 0.2, 0.2);
 
-const double infinity = std::numeric_limits<double>::infinity();
-
 std::vector<std::shared_ptr<sphere>> spheres;
 //std::vector<sphere> spheres;
 std::vector<polygon> polygons;
@@ -29,16 +27,17 @@ std::vector<polygon> polygons;
 
 color get_illumination(const ray& r) {
 
-    std::vector<sphere> spheres;
+    //std::vector<sphere> spheres;
+    //std::vector<std::shared_ptr<sphere>> spheres;
 
     // sphere(center, radius, Kd, Ks, Ka, Kgls, Refl, Od, Os)
     // reflective sphere 
     spheres.push_back(
-        sphere(
+        std::make_shared<sphere>(
             point3(0.0, 0.3, -1.0), 
             0.25, 0.0, 0.1, 0.1, 10.0, 0.125, 
             color(0.75, 0.75, 0.75), 
-color(1.0, 1.0, 1.0)
+            color(1.0, 1.0, 1.0)
         )
     );
 
@@ -70,21 +69,23 @@ color(1.0, 1.0, 1.0)
     double closest_t = infinity;
 
     for (auto& s : spheres) {
-        auto t = s.hit(r);
+        auto t = s->hit(r);
+        int d = 3; // max depth for reflections
+
 
         if (t > 0.0 && t < closest_t) {
             closest_t = t;
-            auto t = s.hit(r);
-            finalColor = s.get_color(r, t, 3, spheres);
+            finalColor = s->get_color(r, t, d-1, spheres);
         }
     }
     for (auto& p : polygons) {
         auto t = p.hit(r);
+        int d = 3; // max depth for reflections
 
         if (t > 0.0 && t < closest_t) {
             closest_t = t;
             auto t = p.hit(r);
-            finalColor = p.get_color(r, t, 3);
+            finalColor = p.get_color(r, t, d-1);
         }
     }
     return finalColor;
@@ -145,6 +146,7 @@ int main() {
     }
     std::clog << "\rDone.                 \n";
 	imageOut.close();
+    std::cout << "FINISHED RENDER\n";
 }
 
 // terminal build command

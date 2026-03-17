@@ -6,8 +6,7 @@
 #include <memory>
 #include "vec3.h"
 
-double closest_t = std::numeric_limits<double>::infinity();
-inline constexpr double infinity = std::numeric_limits<double>::infinity();
+const double infinity = std::numeric_limits<double>::infinity();
 extern color BackgroundColor;
 //using std::vector;
 //extern std::vector<sphere> spheres;
@@ -49,7 +48,7 @@ public:
         }
     }
 
-    color trace_ray(ray r, int depth, const std::vector<std::shared_ptr<sphere>>& spheres) {
+    color trace_ray(ray r, int depth, std::vector<std::shared_ptr<sphere>>& spheres) {
         if (depth <= 0)
             return color(0.0, 0.0, 0.0);
 
@@ -75,7 +74,7 @@ public:
         return hit_object->get_color(r, closest_t, depth, spheres);
     }
 
-    color get_color(const ray& r, double t, int depth, const std::vector<std::shared_ptr<sphere>>& spheres) {
+    color get_color(const ray& r, double t, int depth, std::vector<std::shared_ptr<sphere>>& spheres) {
         /*
         slide 12 and 13 in IlluminationShading
         Equations for I and R:
@@ -88,6 +87,9 @@ public:
 
             Specular light = Os
         */
+        if (depth <= 0) {
+            return color(0.0, 0.0, 0.0);
+        }
 
         if (t <= 0.0) {
             return BackgroundColor;
@@ -102,7 +104,8 @@ public:
 
         // Calaculate refection direction R
 
-        vec3 R = 2 * N * dot(N, L) - L; // reflect direction
+        //vec3 R = 2 * N * dot(N, L) - L; // reflect direction
+        vec3 R = r.direction() - 2 * dot(r.direction(), N) * N;
 
 		// Create reflection ray
 
