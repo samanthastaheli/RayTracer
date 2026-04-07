@@ -31,39 +31,12 @@ color get_illumination(const ray& r) {
     //std::vector<std::shared_ptr<sphere>> spheres;
 
     // sphere(center, radius, Kd, Ks, Ka, Kgls, Refl, Od, Os)
-    // white sphere 
+    // reflective sphere 
     spheres.push_back(
         std::make_shared<sphere>(
-            point3(0.5, 0.0, -0.15), 
-            0.05, 0.8, 0.1, 0.3, 4.0, 0.0, 
-            color(1.0, 1.0, 1.0), 
-            color(1.0, 1.0, 1.0)
-        )
-    );
-	// red sphere
-    spheres.push_back(
-        std::make_shared<sphere>(
-            point3(0.3, 0.0, -0.1),
-            0.08, 0.8, 0.8, 0.1, 32.0, 0.0,
-            color(1.0, 0.0, 0.0),
-            color(0.5, 1.0, 0.5)
-        )
-    );
-    // green sphere
-    spheres.push_back(
-        std::make_shared<sphere>(
-            point3(-0.6, 0.0, 0.0),
-            0.3, 0.7, 0.5, 0.1, 64.0, 0.0,
-            color(0.0, 1.0, 0.0),
-            color(0.5, 1.0, 0.5)
-        )
-    );
-    // refelctive sphere
-    spheres.push_back(
-        std::make_shared<sphere>(
-            point3(0.1, -0.55, 0.25),
-            0.3, 0.0, 0.1, 0.1, 10.0, 0.9,
-            color(0.75, 0.75, 0.75),
+            point3(0.0, 0.3, -1.0), 
+            0.25, 0.0, 0.1, 0.1, 10.0, 0.9, 
+            color(0.75, 0.75, 0.75), 
             color(1.0, 1.0, 1.0)
         )
     );
@@ -72,10 +45,10 @@ color get_illumination(const ray& r) {
 	// blue triangle
     polygons.push_back(
         polygon(
-            point3(0.3, -0.3, -0.4),
-            point3(0.0, 0.3, -0.1),
-            point3(-0.3, -0.3, 0.2),
-            0.9, 0.9, 0.1, 32.0, 0.0,
+            point3(0.0, -0.7, -0.5),
+            point3(1.0, 0.4, -1.8),
+            point3(0.0, -0.7, -1.5),
+            0.9, 1.0, 0.1, 4.0, 0.0,
             color(0.0, 0.0, 1.0),
             color(1.0, 1.0, 1.0)
         )
@@ -83,11 +56,11 @@ color get_illumination(const ray& r) {
     // yellow triangle
     polygons.push_back(
         polygon(
-            point3(-0.2, 0.1, 0.1),
-            point3(-0.2, -0.5, 0.2),
-            point3(-0.2, 0.1, -0.3),
-            0.9, 0.5, 0.1, 4.0, 0.0, 
-            color(1.0, 1.0, 0.0),
+            point3(0.0, -0.7, -0.5),
+            point3(0.0, -0.7, -1.5),
+            point3(-1.0, 0.4, -1.0),
+            0.9, 1.0, 0.1, 4.0, 0.0, 
+            color(1.0, 0.0, 0.0),
             color(1.0, 1.0, 1.0)
         )
     );
@@ -134,7 +107,7 @@ int main() {
     // Create Image
 
 	auto aspect_ratio = 8.0 / 8.0;
-    int image_width = 600;
+    int image_width = 200;
     int image_height = int(image_width / aspect_ratio);
 	image_height = (image_height < 1) ? 1 : image_height; // ensure height is at least 1
 
